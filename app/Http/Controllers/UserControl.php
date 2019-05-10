@@ -87,7 +87,7 @@ class UserControl extends Controller
         $user->password = Hash::make($request->input('senha'));
         $user->telefone = $request->input('telefone');
         $user->cliente = 1;
-        $user->funcionario = 0;
+        $user->funcionario = 2;
         $user->ativo = 1;
 
         $user->save();
