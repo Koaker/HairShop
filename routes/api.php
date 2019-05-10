@@ -16,3 +16,27 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/* USER */ 
+Route::get('/listarUsuarios', 'UserControl@index')->name('listarUsuario');
+Route::post('/cadastrarCliente', 'UserControl@CadastroCliente')->name('cadastrarCliente');
+
+/* FINAL USER */ 
+
+
+/* SERVICO */ 
+
+
+Route::post('/cadastrarServico', 'ServicoControl@store')->name('cadastrarServico');
+
+
+/* FINAL SERVICO */ 
+
+
+/* Cargo */ 
+
+
+Route::post('/cadastrarCargo', 'CargoControl@store')->name('cadastrarCargo');
+
+
+/* FINAL Cargo */ 
