@@ -12,21 +12,21 @@
                     <div class="card border">
                         <div class="card-header">
                            <div class="card-title">
-                           Cadastro de serviço
+                           Solicitação de agendamento
                             </div>
                         </div>
 
                         <div class="card-body">                          
                                                     
                             @csrf
-                            @include('servico/form/frm-cadastro-servico')
+                            @include('agendamento/form/frm-cadastro-agendamento')
                             
                             <button id="send-cadastro" class="btn btn-success btn-sm"> Cadastrar </button>                          
                                  
                            
                             
                             <hr>
-                             <a href="{{ route('home') }}"><button type="cancel" class="btn btn-danger btn-sm"> Cancelar </button> </a>
+                             <a href="{{ route('listar-agendamento') }}"><button type="cancel" class="btn btn-danger btn-sm"> Cancelar </button> </a>
                         </div>
                           
                     </div>                    
@@ -42,14 +42,15 @@
 $(document).ready(function($){
 
 	/* MASKS */
-	$('#servico_valor').mask('00000000,00', {reverse: true});
+	$('#cargo_valor').mask('00000000,00', {reverse: true});
 
 	/* END MASKS */ 
 
 	$("#send-cadastro").click(function(){
 	
-			var nome = $("#servico_nome")
-			var valor = $("#servico_valor")
+			var cliente = $("#cliente")
+			var funcionario = $("#funcionario")
+      var data = $("#data")
 	
 
 			               $.ajaxSetup({
@@ -59,13 +60,15 @@ $(document).ready(function($){
                           });
             
                $.ajax({
-                  url: "{{ route('cadastrarServico') }}",
+                  url: "{{ route('solicitarAgendamento') }}",
                   method: 'POST',
                   dataType: "json",
                   data: {
 
-                  		nome:   nome.val(),
-						          valor: 	valor.val()
+                  		cliente:   cliente.val(),
+						          funcionario: 	funcionario.val(),
+                      data: data.val()
+
                      
                       },                  
                   statusCode:{
@@ -82,21 +85,21 @@ $(document).ready(function($){
             						if(key == 'nome'){
             							msg = '<div class="invalid-feedback">'+ val +' </div>'
             							nome.addClass('is-invalid')            							
-            							$(".servico-nome").append(msg)
+            							$(".cargo-nome").append(msg)
 
             						} 
 
             						 if(key == 'valor'){
             							msg = '<div class="invalid-feedback">'+ val +' </div>'
             							valor.addClass('is-invalid')            							
-            					    $(".servico-valor").append(msg)
+            					    $(".cargo-valor").append(msg)
             						}           					
             						
           					});    						
 						},
             200: function(data){
               alert('Cadastro realizado com sucesso!')            
-              window.location.href = '{{route("listar-servico")}}';
+              window.location.href = '{{route("listar-agendamento")}}';
             }					
 					},                                          
                   

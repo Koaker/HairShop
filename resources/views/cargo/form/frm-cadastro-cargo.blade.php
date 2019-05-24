@@ -1,7 +1,7 @@
 <div class="form-group cargo-nome">
 	
 	 <label for="cargo_nome">Nome </label>
-	 <input type="text" id="cargo_nome" class="form-control" name="cargo_nome" placeholder="Digite o nome do serviço">
+	 <input type="text" id="cargo_nome" class="form-control" name="cargo_nome" placeholder="Digite o nome do cargo">
 </div>
 
 

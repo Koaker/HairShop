@@ -12,7 +12,7 @@
                     <div class="card border">
                         <div class="card-header">
                            <div class="card-title">
-                           Cadastro de serviço
+                           Cadastro de cargo
                             </div>
                         </div>
 
@@ -96,7 +96,7 @@ $(document).ready(function($){
 						},
             200: function(data){
               alert('Cadastro realizado com sucesso!')            
-              window.location.href = '{{route("home")}}';
+              window.location.href = '{{route("listar-cargo")}}';
             }					
 					},                                          
                   

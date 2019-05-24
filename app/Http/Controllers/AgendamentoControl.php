@@ -1,27 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Agendamentos;
 use Illuminate\Http\Request;
-use App\servicos;
-class ServicoControl extends Controller
+
+class AgendamentoControl extends Controller
 {
-
-
-    public function formCadastroServico(){
-        return view('servico/cadastro-servico');
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function formCadastroAgendamento(){
+        return view('agendamento/cadastro-agendamento');
+    }
+
+       public function indexWeb(){
+
+        $agendamentos = agendamentos::all();
+        return view('agendamento/listar-agendamento', compact('agendamentos'));
+    }
+
     public function index()
     {
-
-         $servicos = Servicos::all();
-        return view('servico/listar-servico', compact('servicos'));
-        
+        //
     }
 
     /**
@@ -31,7 +34,7 @@ class ServicoControl extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -42,33 +45,15 @@ class ServicoControl extends Controller
      */
     public function store(Request $request)
     {
-
-          $mensagens = [            
-            'nome.required' => 'O nome é obrigatório',
-            'nome.unique' => 'Esse serviço já existe',
-            'valor.required' => 'O valor é obrigatório'
-        
-        ];
-
-        $campos = [
-
-            'nome' => 'bail|required|unique:servicos,nome',
-            'valor' => 'bail|required'
-           
-        ];
-
-
-         $request->validate($campos, $mensagens);
-
-
-
-         $valor = str_replace(',','.',$request->input('valor') ); 
-
-        $servicos = new servicos();
-        $servicos->nome = $request->input('nome');
-        $servicos->valor = $valor;
-  
-        $servicos->save();
+        //
+        $agenda = new agendamentos();
+        $agenda->cliente = $request->input('cliente');
+        $agenda->funcionario = $request->input('funcionario');
+        $agenda->datahora_agendamento = $request->input('data');
+        $agenda->confirmado = 0;
+        $agenda->situacao = 0;
+        $agenda->valor_total = 0;
+        $agenda->save();
         
     }
 

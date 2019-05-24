@@ -18,8 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 /* USER */ 
-Route::get('/listarUsuarios', 'UserControl@index')->name('listarUsuario');
+
 Route::post('/cadastrarCliente', 'UserControl@CadastroCliente')->name('cadastrarCliente');
+Route::put('/editarCliente', 'UserControl@EditarCliente')->name('editarCliente');
 
 /* FINAL USER */ 
 
@@ -37,6 +38,19 @@ Route::post('/cadastrarServico', 'ServicoControl@store')->name('cadastrarServico
 
 
 Route::post('/cadastrarCargo', 'CargoControl@store')->name('cadastrarCargo');
+
+
+
+/* FINAL Cargo */ 
+
+
+/* Cargo */ 
+
+
+Route::post('/solicitarAgendamento', 'AgendamentoControl@store')->name('solicitarAgendamento');
+Route::delete('/cancelarAgendamento', 'AgendamentoControl@cancelar')->name('cancelarAgendamento');
+Route::put('/remarcarAgendamento', 'AgendamentoControl@remarcar')->name('remarcarAgendamento');
+
 
 
 /* FINAL Cargo */ 

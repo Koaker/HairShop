@@ -25,6 +25,12 @@ class UserControl extends Controller
         return $user->toJson();
     }
 
+    public function indexWeb(){
+
+        $user = User::all();
+        return view('usuario/listar-usuario', compact('user'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

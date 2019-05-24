@@ -23,14 +23,28 @@ Route::get('/home', 'HomeController@index')->name('home');
 /* MODULO USUARIO */
 
 
-Route::get('/cadastro-cliente', 'UserControl@formCadastroCliente')->name('frm-cadastro-cliente');
+Route::get('/cadastro-cliente', 'UserControl@formCadastroCliente')->name('cadastro-cliente');
+Route::get('/cadastro-usuario', 'UserControl@formCadastroCliente')->name('cadastro-usuario');
+Route::get('/listar-usuario', 'UserControl@indexWeb')->name('listar-usuario');
 
 /* FINAL MODULO USUÁRIO */
 
 /* MODULO SERVIÇO */
 
-Route::get('/cadastro-servico', 'ServicoControl@formCadastroServico')->name('frm-cadastro-servico');
+Route::get('/cadastro-servico', 'ServicoControl@formCadastroServico')->name('cadastro-servico');
+Route::get('/listar-servico', 'ServicoControl@index')->name('listar-servico');
+/* FINAL MODULO SERVIÇO */
 
-/* FINAL MODULO USUÁRIO */
 
-Route::get('/cadastro-cargo', 'CargoControl@formCadastroCargo')->name('frm-cadastro-cargo');
+
+/* MODULO CARGO */
+Route::get('/cadastro-cargo', 'CargoControl@formCadastroCargo')->name('cadastro-cargo');
+Route::get('/listar-cargo', 'CargoControl@index')->name('listar-cargo');
+
+/* FINAL MODULO CARGO */
+
+/*MODULO AGENDAMENTO */
+Route::get('/cadastro-agendamento', 'AgendamentoControl@formCadastroAgendamento')->name('cadastro-agendamento');
+Route::get('/listar-agendamento', 'AgendamentoControl@indexWeb')->name('listar-agendamento');
+
+/*FINAL MODULO AGENDAMENTO */ 

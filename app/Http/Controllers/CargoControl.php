@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\cargos;
 class CargoControl extends Controller
 {
+     
 
      public function formCadastroCargo(){
         return view('cargo/cadastro-cargo');
@@ -17,7 +18,8 @@ class CargoControl extends Controller
      */
     public function index()
     {
-        //
+        $cargos = Cargos::all();
+        return view('cargo/listar-cargo', compact('cargos'));
     }
 
     /**
