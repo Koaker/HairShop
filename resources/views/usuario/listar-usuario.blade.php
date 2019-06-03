@@ -9,58 +9,45 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-10 offset-md-1 mt-5">
-                    <div class="card border">
-                        <div class="card-header">
-                           <div class="card-title">
-                            <a href="{{route('home')}}"><button class="btn btn-outline-dark">Voltar</button></a>
-
-                           <p class="mt-3">Lista de usuários</p>
-                            </div>
-
-
-                               <div class='row'>
-                                  
+                <div class="col-md-10 offset-md-1 mt-5">                 
+                        
+                            <div class='row'>
                                   <div class='col-md-5'>
+                                    <a href="{{route('home')}}"><button class="btn btn-outline-dark">Voltar</button></a>
                                        <a href="{{route('cadastro-usuario')}}"><button class="btn btn-success">Adicionar Usuário</button></a>
                                   </div>
-                                  <div class="col-md-6">
-                                    
-                                  </div>
                                  
                                 </div>
 
 
 
-                            <div class="row"> 
-                                <div class="col-md-12">
-
-
-                                <div class="form-group">
-
-                                  <label for="pesquisa_usuario">Pesquisar por: </label>
-                                 
-                                  <select id="select_pesquisa" class="form-control" style="width: 20%;">
-                                    <option value='1' selected>Nome</option>                                   
-                                  </select>                                       
-                                  
-                                </div>
-
-                                <div class="form-group" style="width: 40%;">      
-
-                                  <input type="text" id="pesquisa_usuario" class="form-control" placeholder="Pesquise aqui">
-
-                                </div>
-                                
-                            
+                            <div class="row mt-5"> 
                               
+                              <div class="col-md-2">
+                                <div>
+                                 <label for="pesquisa_usuario">Pesquisar por: </label> 
+                              </div>
+                                <div class="form-group">
+                                                                 
+                                  <select id="select_pesquisa" class="form-control">
+                                    <option value='1' selected>Nome</option>                                   
+                                  </select>  
+                                </div>
+                              
+                              </div>
+
+                              <div class="col-md-6">
+                                 <div class="form-group">
+
+                                  <input type="text" id="pesquisa_usuario" class="form-control" placeholder="Pesquise aqui" style="margin-top: 32px;">
+                                </div>
                               </div>
                                   
                           </div>    
                         </div>
 
-                        <div class="card-body">
-                            <table class="table table-bordered table-hover" id="tabela_usuario">
+                        
+                            <table class="table table-bordered table-hover mt-5" id="tabela_usuario">
                                 <thead>
                                     <th> Código  </th>
                                     <th> Nome    </th>
@@ -103,13 +90,8 @@
 
                             </table>
 
-                           
-                        </div>
-                          
-                    </div>                    
-                </div>
-            </div>
-        </div>
+              
+        
     </main>
 </body>
 

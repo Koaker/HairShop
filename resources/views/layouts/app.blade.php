@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'HairShop') }}</title>
+    <title>HairShop</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -18,16 +18,16 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
-
+    <script src="https://unpkg.com/feather-icons"></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'HairShop') }}
+<body style="height: 100%;">
+    <div id="app" style="height: 100%;">
+        <nav class="navbar navbar-expand-md navbar-dark bg-custom shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    HairShop
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -40,7 +40,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav mr-5">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -73,11 +73,53 @@
                     </ul>
                 </div>
             </div>
-        </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        </nav>
+        @auth
+        <div class="container-fluid" style="height: 100%;">
+            <div class="row" style="height: 100%;">          
+               <nav class="col-md-2 bg-custom shadow-sm sidebar navbar-dark">
+                   <div class="sidebar-sticky">
+                       <ul class="nav flex-column ml-3">
+                        <li class="nav-item mt-3"> 
+                          <i data-feather="users"></i> Usuários </a>
+                                <ul class="nav flex-column ml-3" style="display: none;">
+                                    <li><i data-feather="arrow-right-circle"></i> <a href="">Cadastrar Cliente</a></li>
+                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('cadastro-servico')}}">Cadastrar Serviço</a></li>
+                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('cadastro-cargo')}}">Cadastrar Cargo</a></li>
+                                   <li><i data-feather="arrow-right-circle"></i> <a href=""> Funcionário</a></li>
+                                </ul>
+                        </li>
+                         <li class="nav-item mt-3"> 
+                            <i data-feather="list"></i> Listar
+                            <ul class="nav flex-column ml-3 sub-list" style="display: none;" >
+                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('listar-usuario')}}">Listar Cliente</a></li>
+                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('listar-servico')}}">Listar Serviços</a></li>
+                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('listar-cargo')}}">Listar Cargos</a></li>
+                                   <li><i data-feather="arrow-right-circle"></i> <a href=""> Funcionário</a></li>
+                                </ul>
+                        </li>
+                         <li class="nav-item mt-3"> 
+                            <i data-feather="book"></i> Agendamentos
+                            <ul class="nav flex-column ml-3 sub-list" style="display: none;">
+                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('cadastro-agendamento')}}">Cadastrar agendamento</a></li>
+                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('listar-agendamento')}}">Listar agendamentos</a></li>
+                                 
+                                </ul>
+                        </li>
+                       </ul>
+                   </div>
+               </nav>
+             @endauth 
+           
+
+            <main class="col-md-10 mt-5 px-4" role="main">
+                @yield('content')
+            </main>
+        </div> 
+    </div>
+
+ 
 
     </div>
 
@@ -85,3 +127,18 @@
       @yield('scripts')
 </body>
 </html>
+  <script>
+    $(document).ready(function(){
+        feather.replace()
+        $(".sidebar .nav-item").click(function(){  
+
+         if($(this).children('ul').is(':visible'))
+           $(this).children('ul').hide()
+        else
+            $(this).children('ul').show()
+            
+        });
+    })
+
+      
+    </script>

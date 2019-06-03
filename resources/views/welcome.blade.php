@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>HairShop - Homepage</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -65,8 +65,9 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div class="flex-center position-ref full-height" >
             @if (Route::has('login'))
+            <nav>
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
@@ -79,6 +80,8 @@
                     @endauth
                 </div>
             @endif
+            </nav>
+          
 
             <div class="content">
                 <div class="title m-b-md">
