@@ -146,6 +146,11 @@ class UserControl extends Controller
     public function deletarCliente(Request $request)
     {
         $user = User::find($request->input('id'););
-        $user->delete();
+        
+
+        if( $user->delete() )
+            return json_encode("Deletou com sucesso");
+        else
+            return json_encode("Não deletou");
     }
 }
