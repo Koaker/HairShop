@@ -96,9 +96,10 @@ class UserControl extends Controller
         $user->funcionario = 2;
         $user->ativo = 1;
 
-        $user->save();
-
-        
+        if( $user->save() )
+            return json_encode("Cadastrou com sucesso");
+        else
+            return json_encode("Usuário não cadastrado");
         
     }
 
@@ -142,8 +143,9 @@ class UserControl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deletarCliente(Request $request)
     {
-        //
+        $user = User::find($request->input('id'););
+        $user->delete();
     }
 }
