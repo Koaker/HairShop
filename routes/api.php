@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/cadastrarCliente', 'UserControl@CadastroCliente')->name('cadastrarCliente');
 Route::put('/editarCliente', 'UserControl@EditarCliente')->name('editarCliente');
-Route::post('/deletarCliente', 'userControl@deletarCliente')->name('deletarCliente');
+Route::delete('/deletarCliente', 'UserControl@deletarCliente')->name('deletarCliente');
 
 /* FINAL USER */ 
 
