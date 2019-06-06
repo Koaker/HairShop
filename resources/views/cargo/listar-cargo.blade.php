@@ -10,18 +10,20 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-10 offset-md-1 mt-5">
-                    <div class="card border">
-                        <div class="card-header">
-                           <div class="card-title">
-                            <a href="{{route('home')}}"><button class="btn btn-outline-dark">Voltar</button></a>
-                           <p class="mt-3">Lista de cargos</p>
-                            </div>
+
+                  <h1 class="display-3">Lista de cargos</h1>                   
+                       
+                          
+                            
+                           
+                            
 
 
                                <div class='row'>
                                   
                                   <div class='col-md-5'>
-                                       <a href="{{route('cadastro-cargo')}}"><button class="btn btn-success">Adicionar Cargo</button></a>
+                                      <a href="{{route('home')}}"><button class="btn btn-outline-dark">Voltar</button></a>
+                                       <a href="{{route('cadastro-cargo')}}"><button class="btn btn-outline-success">Adicionar Cargo</button></a>
                                   </div>
                                  
                                 </div>
@@ -29,7 +31,7 @@
 
 
                             <div class="row"> 
-                                <div class="col-md-12">
+                                <div class="col-md-11">
 
 
                                 <div class="form-group">
@@ -53,9 +55,9 @@
                               </div>
                                   
                           </div>    
-                        </div>
+                        
 
-                        <div class="card-body">
+                      
                             <table class="table table-bordered table-hover" id="tabela_cargo">
                                 <thead>
                                     <th> Código  </th>
@@ -82,9 +84,9 @@
                             </table>
 
                            
-                        </div>
+                    
                           
-                    </div>                    
+                                        
                 </div>
             </div>
         </div>

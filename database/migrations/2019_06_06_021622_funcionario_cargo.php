@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ServicosInit extends Migration
+class FuncionarioCargo extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class ServicosInit extends Migration
      */
     public function up()
     {
-        Schema::create('servicos', function (Blueprint $table) {
+        Schema::create('funcionario_cargo', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nome');
-            $table->integer('duracao');
-            $table->decimal('valor', 8,2);
+            $table->integer('cargo');
+            $table->integer('servico');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class ServicosInit extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('servicos');
+        Schema::dropIfExists('funcionario_cargo');
     }
 }

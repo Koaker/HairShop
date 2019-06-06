@@ -22,6 +22,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
+
 <body style="height: 100%;">
     <div id="app" style="height: 100%;">
         <nav class="navbar navbar-expand-md navbar-dark bg-custom shadow-sm">
@@ -83,27 +85,28 @@
                        <ul class="nav flex-column ml-3">
                         <li class="nav-item mt-3"> 
                           <i data-feather="users"></i> Usuários </a>
-                                <ul class="nav flex-column ml-3" style="display: none;">
-                                    <li><i data-feather="arrow-right-circle"></i> <a href="">Cadastrar Cliente</a></li>
-                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('cadastro-servico')}}">Cadastrar Serviço</a></li>
-                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('cadastro-cargo')}}">Cadastrar Cargo</a></li>
-                                   <li><i data-feather="arrow-right-circle"></i> <a href=""> Funcionário</a></li>
+                                <ul class="nav flex-column ml-3">
+                                    <li><i data-feather="chevron-right" ></i> <a href="{{route('cadastro-usuario')}}">Cadastrar usuário</a></li>
+                                    <li><i data-feather="chevron-right" size="2"></i> <a href="{{route('listar-usuario')}}">Listar Cliente</a></li>
+                                    <li><i data-feather="chevron-right" size="2"></i> <a href="{{route('listar-usuario')}}">Listar Funcionários</a></li>
+                                   
                                 </ul>
                         </li>
                          <li class="nav-item mt-3"> 
-                            <i data-feather="list"></i> Listar
-                            <ul class="nav flex-column ml-3 sub-list" style="display: none;" >
-                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('listar-usuario')}}">Listar Cliente</a></li>
-                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('listar-servico')}}">Listar Serviços</a></li>
-                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('listar-cargo')}}">Listar Cargos</a></li>
-                                   <li><i data-feather="arrow-right-circle"></i> <a href=""> Funcionário</a></li>
+                            <i data-feather="list"></i> Serviços
+                            <ul class="nav flex-column ml-3 sub-list" >
+                                   <li><i data-feather="chevron-right"></i> <a href="{{route('cadastro-servico')}}">Cadastrar Serviço</a></li>  
+                                   <li><i data-feather="chevron-right"></i> <a href="{{route('listar-servico')}}">Listar Serviços</a></li>
+                                    <li><i data-feather="chevron-right"></i> <a href="{{route('cadastro-cargo')}}">Cadastrar Cargo</a></li>
+                                   <li><i data-feather="chevron-right"></i> <a href="{{route('listar-cargo')}}">Listar Cargos</a></li>
+                                  
                                 </ul>
                         </li>
                          <li class="nav-item mt-3"> 
                             <i data-feather="book"></i> Agendamentos
-                            <ul class="nav flex-column ml-3 sub-list" style="display: none;">
-                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('cadastro-agendamento')}}">Cadastrar agendamento</a></li>
-                                   <li><i data-feather="arrow-right-circle"></i> <a href="{{route('listar-agendamento')}}">Listar agendamentos</a></li>
+                            <ul class="nav flex-column ml-3 sub-list">
+                                   <li><i data-feather="chevron-right"></i> <a href="{{route('cadastro-agendamento')}}">Cadastrar agendamento</a></li>
+                                   <li><i data-feather="chevron-right"></i> <a href="{{route('listar-agendamento')}}">Listar agendamentos</a></li>
                                  
                                 </ul>
                         </li>
@@ -128,16 +131,19 @@
 </body>
 </html>
   <script>
+
     $(document).ready(function(){
         feather.replace()
-        $(".sidebar .nav-item").click(function(){  
+       
+        // $(".sidebar .nav-item").click(function(){  
 
-         if($(this).children('ul').is(':visible'))
-           $(this).children('ul').hide()
-        else
-            $(this).children('ul').show()
+        //  if($(this).children('ul').is(':visible'))
+        //    $(this).children('ul').hide()
+        // else
+        //     $(this).children('ul').show()
             
-        });
+        // });
+
     })
 
       

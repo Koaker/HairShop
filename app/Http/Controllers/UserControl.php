@@ -18,6 +18,10 @@ class UserControl extends Controller
          return view('usuario/cadastro-cliente');
     }
 
+    public function formCadastroUsuario(){
+         return view('usuario/cadastro-usuario');
+    }
+
 
     public function index()
     {
@@ -40,6 +44,88 @@ class UserControl extends Controller
     {
         
 
+
+    }
+
+    public function CadastroUsuario(Request $request){
+
+
+          $mensagens = [            
+            'nome.required' => 'O nome é obrigatório',
+            'nome.string' => 'Você deve digitar um texto', 
+            'cpf.unique' => 'O CPF já está cadastrado para outro usuário',
+            'cpf.min' => 'CPF inválido',
+            'cpf.required' => 'O CPF é obrigatório',
+            'email.required' => 'O e-mail é obrigatório',
+            'email.email' => 'O e-mail informado é inválido',
+            'email.unique' => 'O e-mail já está cadastrado para outro usuário',
+            'senha.required' => 'A senha é obrigatória',
+            'senha.confirmed' => 'A senha não é igual a confirmação de senha',
+            'senha_confirmation.required' => 'A confirmação de senha é obrigatória',
+            'senha_confirmation.same' => 'A confirmação da senha não é igual a senha',
+            'telefone.required' => 'O telefone é obrigatório',
+            'telefone.max' => 'Telefone inválido! O telefone deve ser informado junto com o DDD',
+            'telefone.min' => 'Telefone inválido! O telefone deve ser informado junto com o DDD',
+            'tipo.required' => "Você deve selecionar um tipo",
+
+        ];
+
+        $campos = [
+
+            'nome' => 'bail|required|string',
+            'cpf' => 'bail|required|unique:users,cpf|min:14|max:14',
+            'email' => 'bail|required||email|unique:users,email',
+            'senha' => 'bail|required|confirmed',
+            'senha_confirmation' => 'bail|required|same:senha',
+            'telefone' => 'bail|required|max:15|min:15',
+            'tipo' => 'bail|required'
+        ];
+         $request->validate($campos, $mensagens);
+
+
+
+
+
+        $user = new User();
+        $user->name = $request->input('nome');
+        $user->cpf = $request->input('cpf');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('senha'));
+        $user->telefone = $request->input('telefone');                
+        $user->ativo = 1;
+
+        switch ((int)$request->input('tipo')) {
+             case 0:
+                $user->cliente = 0;
+                break;
+            case 1:
+                //Usuário normal
+                $user->funcionario = 1;
+                break;
+             case 2:
+                //Usuário administrador
+                $user->funcionario = 2;
+                break;
+            
+            default:
+                $user->cliente = 0;
+                break;
+        }
+
+        $r = new \stdClass();
+        if( $user->save() ){
+                
+            $r->mensagem = "O usuário foi cadastrado com sucesso";
+            $t->sucesso[] = $r;
+            return json_encode($t);
+
+        }  else {
+
+            $r->mensagem = "O usuário não foi cadastrado";
+            $t->errors[] = $r;
+            return json_encode($t);
+           
+        }
 
     }
 
@@ -93,15 +179,28 @@ class UserControl extends Controller
         $user->password = Hash::make($request->input('senha'));
         $user->telefone = $request->input('telefone');
         $user->cliente = 1;
-        $user->funcionario = 2;
+        $user->funcionario = 0;
         $user->ativo = 1;
 
-        if( $user->save() )
-            return json_encode("Cadastrou com sucesso");
-        else
-            return json_encode("Usuário não cadastrado");
+        $r = new \stdClass();
+        if( $user->save() ){
+                
+            $r->mensagem = "O serviço foi cadastrado com sucesso!";
+            $t->sucesso[] = $r;
+            return json_encode($t);
+
+        }  else {
+
+            $r->mensagem = "O serviço não foi cadastrado!";
+            $t->errors[] = $r;
+            return json_encode($t);
+           
+        }
+    } // Final do método
+       
+            
         
-    }
+    
 
     /**
      * Display the specified resource.

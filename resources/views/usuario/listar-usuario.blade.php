@@ -2,51 +2,57 @@
 
 @section('content')
 <head>
-  <title> Lista de usuarios </title>
+  <title> Lista de clientes </title>
 </head>
 
 <body>
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-10 offset-md-1 mt-5">                 
-                        
-                            <div class='row'>
-                                  <div class='col-md-5'>
-                                    <a href="{{route('home')}}"><button class="btn btn-outline-dark">Voltar</button></a>
-                                       <a href="{{route('cadastro-usuario')}}"><button class="btn btn-success">Adicionar Usuário</button></a>
+                <div class="col-md-11 offset-md-1 mt-5">
+                   
+                       
+                           <h1 class="display-3">Lista de clientes</h1>
+
+                               <div class='row mt-4'>
+                                  
+                                  <div class='col-md-3'>
+                                       <a href="{{route('home')}}"><button class="btn btn-outline-dark">Voltar</button></a>
+                                       <a href="{{route('cadastro-servico')}}"><button class="btn btn-outline-success">Adicionar servico</button></a>
                                   </div>
-                                 
+                                
                                 </div>
 
 
 
-                            <div class="row mt-5"> 
-                              
-                              <div class="col-md-2">
-                                <div>
-                                 <label for="pesquisa_usuario">Pesquisar por: </label> 
-                              </div>
+                            <div class="row mt-4"> 
+                                <div class="col-md-12">
+
+
                                 <div class="form-group">
-                                                                 
-                                  <select id="select_pesquisa" class="form-control">
+
+                                  <label for="pesquisa_cliente">Pesquisar por: </label>
+                                 
+                                  <select id="select_pesquisa" class="form-control" style="width: 20%;">
                                     <option value='1' selected>Nome</option>                                   
-                                  </select>  
+                                  </select>                                       
+                                  
                                 </div>
+
+                                <div class="form-group" style="width: 40%;">      
+
+                                  <input type="text" id="pesquisa_cliente" class="form-control" placeholder="Pesquise aqui">
+
+                                </div>
+                                
+                            
                               
-                              </div>
-
-                              <div class="col-md-6">
-                                 <div class="form-group">
-
-                                  <input type="text" id="pesquisa_usuario" class="form-control" placeholder="Pesquise aqui" style="margin-top: 32px;">
-                                </div>
                               </div>
                                   
                           </div>    
-                        </div>
-
                         
+
+                       
                             <table class="table table-bordered table-hover mt-5" id="tabela_usuario">
                                 <thead>
                                     <th> Código  </th>
@@ -55,8 +61,7 @@
                                     <th> E-mail </th>
                                     <th> Telefone  </th>
                                     <th> Data de cadastro </th>
-                                    <th> Tipo </th>
-                                    <th> Cargo </th>  
+                                    <th> Tipo </th>                                     
                                     <th> Ativo </th>
                                     <th> Editar </th>                                   
                                     <th> Inativar </th>                                  
@@ -78,8 +83,7 @@
                                          <td>Cliente</td>
                                         @else
                                         <td>Funcionário</td>
-                                        @endif                                       
-                                        <td>{{$u->cargo}}</td>
+                                        @endif  
                                          <td>{{$u->ativo}}</td>                                  
                                         <td><a > <button class="btn btn-primary" value='{{$u->id}}'> Editar </button> </a></td>
                                         <td><a > <button class="btn btn-danger" value='{{$u->id}}'> Inativar </button> </a></td>
@@ -89,9 +93,13 @@
                                 </tbody>
 
                             </table>
-
-              
-        
+                           
+                        
+                          
+                                       
+                
+            </div>
+        </div>
     </main>
 </body>
 
@@ -104,10 +112,7 @@
 </script>
 
 
-
-
-
-
+<!-- END SCRIPT -->
 
 <!-- MODAL EDIT -->
 <!-- 

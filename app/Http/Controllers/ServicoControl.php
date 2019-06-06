@@ -46,14 +46,16 @@ class ServicoControl extends Controller
           $mensagens = [            
             'nome.required' => 'O nome é obrigatório',
             'nome.unique' => 'Esse serviço já existe',
-            'valor.required' => 'O valor é obrigatório'
+            'valor.required' => 'O valor é obrigatório',
+            'duracao.required' => 'A duração é obrigatória'
         
         ];
 
         $campos = [
 
             'nome' => 'bail|required|unique:servicos,nome',
-            'valor' => 'bail|required'
+            'valor' => 'bail|required',
+            'duracao' => 'bail|required'
            
         ];
 
@@ -67,9 +69,11 @@ class ServicoControl extends Controller
         $servicos = new servicos();
         $servicos->nome = $request->input('nome');
         $servicos->valor = $valor;
+        $servicos->duracao = $request->input('duracao');
   
         $servicos->save();
         
+
     }
 
     /**

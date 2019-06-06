@@ -8,26 +8,20 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-4 offset-md-4 mt-5">
-                    <div class="card border">
-                        <div class="card-header">
-                           <div class="card-title">
-                           Cadastro de serviço
-                            </div>
-                        </div>
 
-                        <div class="card-body">                          
+                <div class="col-md-6 offset-md-1 mt-5">
+                    <h1 class="display-3"> Cadastro de serviço</h1>  
+                       <hr>
+                           
                                                     
                             @csrf
                             @include('servico/form/frm-cadastro-servico')
                             
-                            <button id="send-cadastro" class="btn btn-success btn-sm"> Cadastrar </button>                          
-                                 
+                            <button id="send-cadastro" class="btn btn-success btn-md"> Cadastrar </button>                          
+                            <a href="{{ route('home') }}"><button type="cancel" class="btn btn-danger btn-md"> Cancelar </button> </a>     
                            
                             
-                            <hr>
-                             <a href="{{ route('home') }}"><button type="cancel" class="btn btn-danger btn-sm"> Cancelar </button> </a>
-                        </div>
+                        <hr>
                           
                     </div>                    
                 </div>
@@ -50,6 +44,7 @@ $(document).ready(function($){
 	
 			var nome = $("#servico_nome")
 			var valor = $("#servico_valor")
+      var duracao = $("#servico_duracao")
 	
 
 			               $.ajaxSetup({
@@ -65,7 +60,8 @@ $(document).ready(function($){
                   data: {
 
                   		nome:   nome.val(),
-						          valor: 	valor.val()
+						          valor: 	valor.val(),
+                      duracao: duracao.val()
                      
                       },                  
                   statusCode:{
@@ -90,7 +86,15 @@ $(document).ready(function($){
             							msg = '<div class="invalid-feedback">'+ val +' </div>'
             							valor.addClass('is-invalid')            							
             					    $(".servico-valor").append(msg)
-            						}           					
+            						}  
+
+
+
+                        if(key == 'duracao'){
+                          msg = '<div class="invalid-feedback">'+ val +' </div>'
+                          valor.addClass('is-invalid')                          
+                          $(".servico_duracao").append(msg)
+                        }           					
             						
           					});    						
 						},

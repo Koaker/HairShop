@@ -1,6 +1,8 @@
+
+
 <div class="form-group cargo-nome">	
 	 <label for="cliente">Cliente  </label><br><small>IREI PEGAR POR SESSÃO, mas para simular deixei aqui</small>
-	 <input type="text" id="cliente" class="form-control" name="cliente" placeholder="Digite o nome do cargo">
+	 <input type="text" id="cliente" class="form-control" name="cliente" placeholder="">
 </div>
 
 
@@ -19,3 +21,18 @@
 	 <label for="servico">Servicos: </label><br><small>AINDA NÂO IMPLEMENTADO, SERÁ UM ARRAY</small>
 	 <input type="text" id="servico" class="form-control" name="servico" placeholder="Digite o valor">
 </div>
+
+
+
+
+
+<script type="text/javascript">
+    var path = "{{ route('autocomplete-cliente') }}";
+    $('#cliente').typeahead({
+        source:  function (query, process) {
+        return $.get(path, { query: query }, function (data) {
+                return process(data);
+            });
+        }
+    });
+</script>

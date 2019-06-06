@@ -9,30 +9,28 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-10 offset-md-1 mt-5">
-                    <div class="card border">
-                        <div class="card-header">
-                           <div class="card-title">
-                            <a href="{{route('home')}}"><button class="btn btn-outline-dark">Voltar</button></a>
+                <div class="col-md-11 offset-md-1 mt-5">
+                   
+                       
+                           <h1 class="display-3">Lista de servicos</h1>
+                            
 
-                           <p class="mt-3">Lista de servicos</p>
-                            </div>
+                       
+                          
 
 
-                               <div class='row'>
+                               <div class='row mt-4'>
                                   
-                                  <div class='col-md-5'>
-                                       <a href="{{route('cadastro-servico')}}"><button class="btn btn-success">Adicionar servico</button></a>
+                                  <div class='col-md-3'>
+                                       <a href="{{route('home')}}"><button class="btn btn-outline-dark">Voltar</button></a>
+                                       <a href="{{route('cadastro-servico')}}"><button class="btn btn-outline-success">Adicionar servico</button></a>
                                   </div>
-                                  <div class="col-md-6">
-                                    
-                                  </div>
-                                 
+                                
                                 </div>
 
 
 
-                            <div class="row"> 
+                            <div class="row mt-4"> 
                                 <div class="col-md-12">
 
 
@@ -57,16 +55,18 @@
                               </div>
                                   
                           </div>    
-                        </div>
+                        
 
-                        <div class="card-body">
+                       
                             <table class="table table-bordered table-hover" id="tabela_servico">
                                 <thead>
                                     <th> Código  </th>
                                     <th> Nome    </th>
-                                    <th> Valor    </th>                                  
-                                    <th> Editar </th>                                   
-                                    <th> Deletar </th>                                  
+                                    <th> Valor    </th> 
+                                    <th> Duração(minutos)  </th>                                 
+                                    <th> Editar   </th> 
+                                    <th> Desativar</th>                                  
+                                    <th> Deletar  </th>                                  
 
                                 </thead>
                                 
@@ -75,9 +75,12 @@
                                     <tr>
                                         <td>{{$s->id}}</td>
                                         <td class="td_nome_servico">{{$s->nome}}</td>
-                                        <td>{{$s->valor}}</td>                                  
+                                        <td>{{$s->valor}}</td> 
+                                        <td> {{$s->duracao}}</td>                                 
                                         <td><a > <button class="btn btn-primary" value='{{$s->id}}'> Editar </button> </a></td>
+                                        <td><a > <button class="btn btn-dark" value='{{$s->id}}'> Desativar </button> </a></td>
                                         <td><a > <button class="btn btn-danger" value='{{$s->id}}'> Deletar </button> </a></td>
+
                                     </tr>
                                     @endforeach
 
@@ -86,10 +89,10 @@
                             </table>
 
                            
-                        </div>
+                        
                           
-                    </div>                    
-                </div>
+                                       
+                
             </div>
         </div>
     </main>

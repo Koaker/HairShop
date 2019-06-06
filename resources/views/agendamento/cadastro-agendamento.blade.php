@@ -9,14 +9,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4 offset-md-4 mt-5">
-                    <div class="card border">
-                        <div class="card-header">
-                           <div class="card-title">
+                    
+                       
                            Solicitação de agendamento
-                            </div>
-                        </div>
-
-                        <div class="card-body">                          
+                          
+                                               
                                                     
                             @csrf
                             @include('agendamento/form/frm-cadastro-agendamento')
@@ -27,10 +24,10 @@
                             
                             <hr>
                              <a href="{{ route('listar-agendamento') }}"><button type="cancel" class="btn btn-danger btn-sm"> Cancelar </button> </a>
-                        </div>
+                       
                           
                     </div>                    
-                </div>
+                <
             </div>
         </div>
     </main>

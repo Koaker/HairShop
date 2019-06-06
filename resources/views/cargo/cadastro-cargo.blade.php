@@ -8,28 +8,21 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-4 offset-md-4 mt-5">
-                    <div class="card border">
-                        <div class="card-header">
-                           <div class="card-title">
-                           Cadastro de cargo
-                            </div>
-                        </div>
+                <div class="col-md-6 offset-md-1 mt-5">
 
-                        <div class="card-body">                          
-                                                    
+                  <h1 class="display-3"> Cadastro de cargo</h1> 
+                  <hr>
                             @csrf
                             @include('cargo/form/frm-cadastro-cargo')
                             
-                            <button id="send-cadastro" class="btn btn-success btn-sm"> Cadastrar </button>                          
-                                 
+                            <button id="send-cadastro" class="btn btn-success btn-md"> Cadastrar </button>                          
+                            <a href="{{ route('home') }}"><button type="cancel" class="btn btn-danger btn-md"> Cancelar </button> </a>    
                            
                             
-                            <hr>
-                             <a href="{{ route('home') }}"><button type="cancel" class="btn btn-danger btn-sm"> Cancelar </button> </a>
-                        </div>
-                          
-                    </div>                    
+                <hr>
+                             
+                       
+                                       
                 </div>
             </div>
         </div>

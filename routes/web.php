@@ -17,6 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+Route::get('autocomplete', 'UserControl@AutoCompleteCliente')->name('autocomplete-cliente');
+
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 
@@ -24,7 +29,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/cadastro-cliente', 'UserControl@formCadastroCliente')->name('cadastro-cliente');
-Route::get('/cadastro-usuario', 'UserControl@formCadastroCliente')->name('cadastro-usuario');
+Route::get('/cadastro-usuario', 'UserControl@formCadastroUsuario')->name('cadastro-usuario');
 Route::get('/listar-usuario', 'UserControl@indexWeb')->name('listar-usuario');
 
 /* FINAL MODULO USUÁRIO */

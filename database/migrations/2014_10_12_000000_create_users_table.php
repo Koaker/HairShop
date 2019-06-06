@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('ativo')->nullable();
             $table->integer('perfil')->nullable();
             $table->integer('enderecos')->nullable();
-            $table->integer('cargo')->nullable();           
+                      
             $table->rememberToken();
             $table->timestamps();
         });
