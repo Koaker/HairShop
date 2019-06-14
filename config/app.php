@@ -169,6 +169,8 @@ return [
         /*
          * Application Service Providers...
          */
+        App\Providers\servicosProvider::class,
+        App\Providers\CargosProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,

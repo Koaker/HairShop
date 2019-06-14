@@ -9,12 +9,13 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-10 offset-md-1 mt-5">
+                <div class="col-md-12">
                     <div class="card border">
                         <div class="card-header">
                            <div class="card-title">
                             <a href="{{route('home')}}"><button class="btn btn-outline-dark">Voltar</button></a>
                            <p class="mt-3">Lista de agendamentos</p>
+                           <hr>
                             </div>
 
 

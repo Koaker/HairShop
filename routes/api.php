@@ -19,8 +19,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 /* USER */ 
 
+Route::get('/getFuncionario', 'UserControl@retornaFuncionarioServico')->name('getFuncionario');
+Route::get('/getHorario', 'UserControl@retornaHorario')->name('getHorario');
+
 Route::post('/cadastrarCliente', 'UserControl@CadastroCliente')->name('cadastrarCliente');
 Route::post('/cadastrarUsuario', 'UserControl@CadastroUsuario')->name('cadastrarUsuario');
+
+
 Route::put('/editarCliente', 'UserControl@EditarCliente')->name('editarCliente');
 Route::delete('/deletarCliente', 'UserControl@deletarCliente')->name('deletarCliente');
 

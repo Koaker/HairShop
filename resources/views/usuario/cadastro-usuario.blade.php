@@ -36,6 +36,15 @@
 
 $(document).ready(function($){
 
+
+    $("#usuario_tipo").change(function(){
+
+      if($("#usuario_tipo").val() == 1)
+        $(".usuario-cargo").show();
+      else
+         $(".usuario-cargo").hide();
+    });
+
     /* MASKS */
 
     $('#usuario_telefone').mask('(00) 0000-00000');
@@ -52,6 +61,7 @@ $(document).ready(function($){
             var senha2 = $("#usuario_senha2")
             var telefone = $("#usuario_telefone")
             var tipo = $("#usuario_tipo")
+            var cargos = $("#usuario_cargos")
 
                            $.ajaxSetup({
                         headers: {
@@ -71,7 +81,8 @@ $(document).ready(function($){
                                   senha:                        senha.val(),
                                   senha_confirmation:           senha2.val(),
                                   telefone:                     telefone.val(),
-                                  tipo:                         tipo.val()
+                                  tipo:                         tipo.val(),
+                                  cargos:                       cargos.val()
                      
                       },                  
                   statusCode:{
@@ -126,6 +137,12 @@ $(document).ready(function($){
                                         msg = '<div class="invalid-feedback">'+ val +' </div>'
                                         email.addClass('is-invalid')                                        
                                         $(".usuario-tipo").append(msg) 
+                                    }
+
+                                     if(key == 'cargos'){
+                                        msg = '<div class="invalid-feedback">'+ val +' </div>'
+                                        cargos.addClass('is-invalid')                                        
+                                        $(".usuario-cargo").append(msg) 
                                     }
                                     
                             });                         

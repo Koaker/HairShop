@@ -9,16 +9,10 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-10 offset-md-1 mt-5">
+                <div class="col-md-12">
 
-                  <h1 class="display-3">Lista de cargos</h1>                   
-                       
-                          
-                            
-                           
-                            
-
-
+                  <h1 class="display-3">Lista de cargos</h1>        
+                  <hr>
                                <div class='row'>
                                   
                                   <div class='col-md-5'>

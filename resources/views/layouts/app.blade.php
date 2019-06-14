@@ -12,7 +12,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,6 +20,7 @@
 
     <script src="https://unpkg.com/feather-icons"></script>
     <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
@@ -110,14 +111,21 @@
                                  
                                 </ul>
                         </li>
-                       </ul>
+                      
                    </div>
                </nav>
              @endauth 
            
+            @auth
+                <main class="col-md-10 mt-5 px-4" role="main">
+            @endauth
 
-            <main class="col-md-10 mt-5 px-4" role="main">
+            @guest
+                <main class="col-md-12 mt-5 px-4" role="main">
+            @endguest
+
                 @yield('content')
+
             </main>
         </div> 
     </div>

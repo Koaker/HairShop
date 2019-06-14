@@ -4,8 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\servicos;
+use App\CargosServicos;
+use DB;
 class ServicoControl extends Controller
 {
+
+
+    public function funcionarioServico(){
+
+    }
+
+
 
 
     public function formCadastroServico(){
@@ -19,7 +28,8 @@ class ServicoControl extends Controller
     public function index()
     {
 
-         $servicos = Servicos::all();
+        $servicos = Servicos::paginate(5);
+        
         return view('servico/listar-servico', compact('servicos'));
         
     }
@@ -44,18 +54,19 @@ class ServicoControl extends Controller
     {
 
           $mensagens = [            
-            'nome.required' => 'O nome é obrigatório',
-            'nome.unique' => 'Esse serviço já existe',
-            'valor.required' => 'O valor é obrigatório',
-            'duracao.required' => 'A duração é obrigatória'
-        
+            'servico_nome.required' => 'O nome é obrigatório',
+            'servico_nome.unique' => 'Esse serviço já existe',
+            'servico_valor.required' => 'O valor é obrigatório',
+            'servico_duracao.required' => 'A duração é obrigatória',
+            'cargo_servico.required' => 'Você deve selecionar no mínimo um cargo para este serviço'
         ];
 
         $campos = [
 
-            'nome' => 'bail|required|unique:servicos,nome',
-            'valor' => 'bail|required',
-            'duracao' => 'bail|required'
+            'servico_nome' => 'bail|required|unique:servicos,nome',
+            'servico_valor' => 'bail|required',
+            'servico_duracao' => 'bail|required',
+            'cargos' => 'bail|required'
            
         ];
 
@@ -64,15 +75,25 @@ class ServicoControl extends Controller
 
 
 
-         $valor = str_replace(',','.',$request->input('valor') ); 
+         $valor = str_replace(',','.',$request->input('servico_valor') ); 
 
         $servicos = new servicos();
-        $servicos->nome = $request->input('nome');
+        $servicos->nome = $request->input('servico_nome');
         $servicos->valor = $valor;
-        $servicos->duracao = $request->input('duracao');
+        $servicos->duracao = $request->input('servico_duracao');
   
         $servicos->save();
+        $servico_id = DB::getPdo()->lastInsertId();
+
+        foreach ($request->input('cargos') as $key) {
+            $cargosServicos = new CargosServicos();
+            $cargosServicos->servico = $servico_id; 
+            $cargosServicos->cargo = $key;
+            $cargosServicos->save();
+        }
+
         
+     
 
     }
 

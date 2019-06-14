@@ -1,38 +1,69 @@
 
 
-<div class="form-group cargo-nome">	
-	 <label for="cliente">Cliente  </label><br><small>IREI PEGAR POR SESSÃO, mas para simular deixei aqui</small>
-	 <input type="text" id="cliente" class="form-control" name="cliente" placeholder="">
+<div class="row">
+
+	<div class="col-md-5 form-group agendamento-cliente">
+
+		 <label class="lead" for="cliente_cpf">CPF do cliente Cliente </label><br>
+		 <input type="text" id="cliente_cpf" class="form-control" name="cliente" placeholder="Digite o CPF">
+
+	</div>
+
 </div>
 
 
-<div class="form-group cargo-valor">	
-	 <label for="funcionario">Funcionário: </label>
-	 <input type="text" id="funcionario" class="form-control" name="funcionario" placeholder="Digite o valor">
+<div class="form-group agendamento-servico">	
+
+	 <p class="lead">Selecione um Serviço: </p>
+	 
+</div>
+
+<div class="row">
+
+	<div class="col-md-12">
+		@foreach ($servicos_select as $s)			
+					
+				<div class="servicos-select card border-dark mt-3 mb-3 mr-3" style="max-width: 12rem; min-width: 09rem; float: left;" data-servico="{{$s->id}}">
+  					<div class="card-header"><img style="width: 100%;" src="https://nordicapis.com/wp-content/uploads/Laravel-logo.png">
+  					</div>
+  					
+  					<div class="card-body text-dark">
+
+    				<h5 class="card-title">{{$s->nome}}</h5>
+    				
+  				</div>	
+
+			</div>
+
+		@endforeach
+	
+	
+	</div>
+</div>
+
+<div class="row">
+	
+	
+		 
+	<div class="col-md-12 form-group agendamento-funcionario" id="div-funcionario" style="display: none;">	
+ 	<p class="lead">Funcionário: </p>
+		
+
+	</div>
+</div>
+
+<div class="row">
+
+	<div class="col-md-12">
+		
+			<div class="form-group agendamento-data" id="div-data" style="display: none;">	
+			 
+			 
+		</div>
+		
+	</div>
 </div>
 
 
-<div class="form-group cargo-valor">	
-	 <label for="data">Data que deseja agendar: </label>
-	 <input type="date" id="data" class="form-control" name="data" placeholder="Digite o valor">
-</div>
 
-<div class="form-group cargo-valor">	
-	 <label for="servico">Servicos: </label><br><small>AINDA NÂO IMPLEMENTADO, SERÁ UM ARRAY</small>
-	 <input type="text" id="servico" class="form-control" name="servico" placeholder="Digite o valor">
-</div>
-
-
-
-
-
-<script type="text/javascript">
-    var path = "{{ route('autocomplete-cliente') }}";
-    $('#cliente').typeahead({
-        source:  function (query, process) {
-        return $.get(path, { query: query }, function (data) {
-                return process(data);
-            });
-        }
-    });
-</script>
+<button id="send-cadastro" class="mt-5 btn btn-success btn-sm" style="display: none;"> Cadastrar </button>  

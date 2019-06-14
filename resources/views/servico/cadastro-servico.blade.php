@@ -15,8 +15,11 @@
                            
                                                     
                             @csrf
-                            @include('servico/form/frm-cadastro-servico')
+                            <form>
+                              
                             
+                            @include('servico/form/frm-cadastro-servico')
+                            </form>
                             <button id="send-cadastro" class="btn btn-success btn-md"> Cadastrar </button>                          
                             <a href="{{ route('home') }}"><button type="cancel" class="btn btn-danger btn-md"> Cancelar </button> </a>     
                            
@@ -57,13 +60,7 @@ $(document).ready(function($){
                   url: "{{ route('cadastrarServico') }}",
                   method: 'POST',
                   dataType: "json",
-                  data: {
-
-                  		nome:   nome.val(),
-						          valor: 	valor.val(),
-                      duracao: duracao.val()
-                     
-                      },                  
+                  data: $( "form" ).serialize() ,                  
                   statusCode:{
 					422: function(data){
 						var error = data.responseJSON.errors;

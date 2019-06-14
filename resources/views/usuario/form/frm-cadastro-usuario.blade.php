@@ -24,8 +24,8 @@
 			<label for="usuario_tipo">Tipo </label>
 				
 			<select class="form-control" id="usuario_tipo">			
-				<option  value="0"> Cliente </option>
-				<option  selected value="1"> Funcionário </option>
+				<option  selected value="0"> Cliente </option>
+				<option  value="1"> Funcionário </option>
 				<option value="2"> Admnistrador </option>
 			</select>
 			 
@@ -54,6 +54,18 @@
 		</div>
 	</div>
 	
+</div>
+
+
+<div class="form-group usuario-cargo" style="display: none;">
+	<label>Cargos que executam este serviço</label>
+
+	<select id="usuario_cargos" class="form-control" name="cargos[]" multiple>
+		@foreach($cargos_select as $c)
+		<option value="{{$c->id}}"> {{$c->nome}} </option>
+		@endforeach
+	 
+	</select>
 </div>
 	
 			 

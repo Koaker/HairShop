@@ -16,7 +16,7 @@ class FuncionarioCargo extends Migration
         Schema::create('funcionario_cargo', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('cargo');
-            $table->integer('servico');
+            $table->integer('funcionario');
             $table->timestamps();
         });
     }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\cargos;
 class CargoControl extends Controller
 {
+
+
      
 
      public function formCadastroCargo(){

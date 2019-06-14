@@ -3,16 +3,64 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\funcionarioCargo;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use DB;
 
 class UserControl extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
+
+    public function retornaHorario(Request $request){
+       
+        $horario = array('09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00');
+
+        $horario_banco = array();
+
+        $horario_disponivel = DB::table('agendamentos','hora_inicio', 'hora_final')           
+            ->where('funcionario', $request->input('funcionario') )          
+            ->get();
+
+
+        $horario_disponivel = (array)$horario_disponivel;
+
+        foreach ($horario_disponivel as $key) {
+
+            foreach ($key as $row) {
+                
+                $horario_banco[] = date("H:i", strtotime($row->hora_final));
+                $horario_banco[] = date("H:i", strtotime($row->hora_inicio));
+
+            }
+        }
+
+        if($horario_banco){
+            $resultado = array_diff($horario, $horario_banco);
+        } else{
+            $resultado = $horario;
+        }
+        
+      
+         $r = new \stdClass();
+         $r->horarios = $resultado;
+        
+        return json_encode($r);
+    }
+
+    public function retornaFuncionarioServico(Request $request){
+        $funcionario = DB::table('cargos_servicos')
+            ->join('funcionario_cargo','funcionario_cargo.cargo', '=', 'cargos_servicos.cargo')
+            ->join('users', 'users.id', '=', 'funcionario_cargo.funcionario')
+            ->where('cargos_servicos.servico', $request->input('servico') )
+            ->groupBy('users.id')
+            ->get();
+
+            return $funcionario->toJson();
+
+    }
+
 
     public function formCadastroCliente(){
          return view('usuario/cadastro-cliente');
@@ -35,22 +83,12 @@ class UserControl extends Controller
         return view('usuario/listar-usuario', compact('user'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-
-
-    }
 
     public function CadastroUsuario(Request $request){
 
-
-          $mensagens = [            
+        $user = new User();
+        
+        $mensagens = [            
             'nome.required' => 'O nome é obrigatório',
             'nome.string' => 'Você deve digitar um texto', 
             'cpf.unique' => 'O CPF já está cadastrado para outro usuário',
@@ -80,27 +118,18 @@ class UserControl extends Controller
             'telefone' => 'bail|required|max:15|min:15',
             'tipo' => 'bail|required'
         ];
-         $request->validate($campos, $mensagens);
 
 
 
-
-
-        $user = new User();
-        $user->name = $request->input('nome');
-        $user->cpf = $request->input('cpf');
-        $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('senha'));
-        $user->telefone = $request->input('telefone');                
-        $user->ativo = 1;
-
-        switch ((int)$request->input('tipo')) {
+         switch ((int)$request->input('tipo')) {
              case 0:
                 $user->cliente = 0;
                 break;
             case 1:
                 //Usuário normal
                 $user->funcionario = 1;
+                $mensagens['cargos.required'] = 'Você deve selecionar no mínimo um cargo!';
+                $campos['cargos'] = 'bail|required';
                 break;
              case 2:
                 //Usuário administrador
@@ -112,9 +141,41 @@ class UserControl extends Controller
                 break;
         }
 
+
+
+        $request->validate($campos, $mensagens);
+
+
+
+
+
+        
+        $user->name = $request->input('nome');
+        $user->cpf = $request->input('cpf');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('senha'));
+        $user->telefone = $request->input('telefone');                
+        $user->ativo = 1;
+
+       
+
         $r = new \stdClass();
+
         if( $user->save() ){
+
+            if($user->funcionario == 1){
+
+                $user_id = DB::getPdo()->lastInsertId();            
+                foreach ($request->input('cargos') as $key) {
+                    $cargos = new funcionarioCargo();
+                    $cargos->funcionario = $user_id;
+                    $cargos->cargo = $key;
+                    $cargos->save(); 
+                }
                 
+
+            }
+
             $r->mensagem = "O usuário foi cadastrado com sucesso";
             $t->sucesso[] = $r;
             return json_encode($t);
@@ -184,7 +245,7 @@ class UserControl extends Controller
 
         $r = new \stdClass();
         if( $user->save() ){
-                
+            
             $r->mensagem = "O serviço foi cadastrado com sucesso!";
             $t->sucesso[] = $r;
             return json_encode($t);
