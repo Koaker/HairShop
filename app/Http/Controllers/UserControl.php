@@ -19,13 +19,16 @@ class UserControl extends Controller
 
         $horario_banco = array();
 
-        $horario_disponivel = DB::table('agendamentos','hora_inicio', 'hora_final')           
-            ->where('funcionario', $request->input('funcionario') )          
-            ->get();
+        $funcionario = $request->input('funcionario');
+        $horario_dia = $request->input('dia_escolhido');
 
-
+        $horario_disponivel = DB::table('agendamentos')
+        ->selectRaw("hora_inicio, hora_final")
+        ->whereRaw( "funcionario = $funcionario and hora_inicio = '$horario_dia'")->get();   
+        
         $horario_disponivel = (array)$horario_disponivel;
 
+        
         foreach ($horario_disponivel as $key) {
 
             foreach ($key as $row) {
@@ -35,6 +38,7 @@ class UserControl extends Controller
 
             }
         }
+
 
         if($horario_banco){
             $resultado = array_diff($horario, $horario_banco);
@@ -49,8 +53,10 @@ class UserControl extends Controller
         return json_encode($r);
     }
 
+
     public function retornaFuncionarioServico(Request $request){
         $funcionario = DB::table('cargos_servicos')
+            ->selectRaw('users.id,users.name')
             ->join('funcionario_cargo','funcionario_cargo.cargo', '=', 'cargos_servicos.cargo')
             ->join('users', 'users.id', '=', 'funcionario_cargo.funcionario')
             ->where('cargos_servicos.servico', $request->input('servico') )

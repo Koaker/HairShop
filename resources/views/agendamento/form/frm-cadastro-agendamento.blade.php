@@ -12,7 +12,7 @@
 </div>
 
 
-<div class="form-group agendamento-servico">	
+<div class="form-group agendamento-servico agendamento_selecionado">	
 
 	 <p class="lead">Selecione um Serviço: </p>
 	 
@@ -41,22 +41,36 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row funcionario_selecionado">
 	
 	
 		 
 	<div class="col-md-12 form-group agendamento-funcionario" id="div-funcionario" style="display: none;">	
- 	<p class="lead">Funcionário: </p>
+ 	
 		
 
 	</div>
 </div>
 
-<div class="row">
+
+
+<div class="row agendamento_dia_selecionado">
+
+	<div class="col-md-12" id="div-agendamento-dia" style="display: none;">
+		
+		<div class="form-group"> <!-- Date input -->
+        	<label class="control-label" for="date">Date</label>
+        	<input class="form-control" id="dia_escolhido" name="date" placeholder="MM/DD/YYYY" type="date"/>
+      </div>
+		
+	</div>
+</div>
+
+<div class="row horario_selecionado">
 
 	<div class="col-md-12">
 		
-			<div class="form-group agendamento-data" id="div-data" style="display: none;">	
+			<div class="form-group agendamento-data" id="div-data" style="display: none; height: 10px;">	
 			 
 			 
 		</div>
@@ -67,3 +81,24 @@
 
 
 <button id="send-cadastro" class="mt-5 btn btn-success btn-sm" style="display: none;"> Cadastrar </button>  
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	$(function(){
+   		 var dtToday = new Date();
+   		 
+   		 var month = dtToday.getMonth() + 1;
+   		 var day = dtToday.getDate();
+   		 var year = dtToday.getFullYear();
+   		 if(month < 10)
+   		     month = '0' + month.toString();
+   		 if(day < 10)
+   		     day = '0' + day.toString();
+   		 
+   		 var maxDate = year + '-' + month + '-' + day;
+   		 
+   		 $('#dia_escolhido').attr('min', maxDate);
+});
+	})
+
+</script>

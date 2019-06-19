@@ -23,13 +23,14 @@
                             </div> 
 
                             <div class="row">
-                              <div class="col-md12">
-                                        
-                              <hr>
-                             <a href="{{ route('listar-agendamento') }}"><button type="cancel" class="btn btn-danger btn-sm"> Cancelar </button> </a>
+                              <div class="col-md12">                                        
+                                  <hr>
+                                  <button type="submit" class="btn btn-success btn-sm" id="enviarAgendamento"> Enviar </button>
+                                  <a href="{{ route('listar-agendamento') }}"><button type="cancel" class="btn btn-danger btn-sm"> Cancelar </button> </a>
+
                               </div>
                        
-                            </div>
+                        </div>
                 
                           
                     </div>                    
@@ -47,18 +48,23 @@ var flag_funcionario = 0
 
 function selectHorario(id){
 
+          elemento = $(".horario-select[data-id-hora="+ id +"]")
 
-           elemento = $(".funcionario-select[data-funcionario="+ id +"]")
-
-           $(".funcionario-select").removeClass('border-danger');         
-           $(".funcionario-select").addClass('border-dark');
+           $(".horario-select").removeClass('border-danger');         
+           $(".horario-select").addClass('border-dark');
           
            elemento.removeClass('border-dark');          
            elemento.addClass('border-danger');
 
           if(!$("#div-data").is(":visible"))
               $("#div-data").show();
+
+
 }
+
+
+
+
 
 
 function selectFuncionario(id){
@@ -72,8 +78,109 @@ function selectFuncionario(id){
            elemento.removeClass('border-dark');          
            elemento.addClass('border-danger');
 
-          if(!$("#div-data").is(":visible"))
+            if(!$("#div-agendamento-dia").is(":visible"))
+              $("#div-agendamento-dia").show();
+
+            $("#div-agendamento-dia").attr('data-funcionario', id);
+
+
+}
+      
+
+$(document).ready(function($){
+
+
+  /* FUNCTIONS */
+
+
+  $("#enviarAgendamento").click(function(){
+
+             var servico ="";
+             var funcionario = "";
+             var horario_momento = "";
+
+               $('.servicos-select').each(function(){
+
+                  if ( $(this).hasClass( "border-danger" ) ) {
+                    console.log('entrou aqui')
+                        servico = $(this).data('servico');
+                  }
+                });
+
+
+                 $('.funcionario-select').each(function(){
+
+                   if ( $(this).hasClass( "border-danger" ) ) {
+                      console.log('entrou funcionario')
+                      funcionario = $(this).data('funcionario');
+                }
+
+                });
+
+
+
+                $('.horario-select').each(function(){
+
+                  if ( $(this).hasClass( "border-danger" ) ) {
+                   
+                        horario_momento = $(this).data('horario');
+                  }
+                });
+              
+       
+
+                // console.log('serv=> ' + servico)
+                // console.log('funcionario=> '+funcionario)
+                // console.log('horario_momento=> '+horario_momento)
+                // console.log('Dia escolihdo=> '+ $("#dia_escolhido").val())
+                // console.log('cpf=> '+ $("#cliente_cpf").val())
+
+               
+               $.ajaxSetup({
+                       headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                         });
+                
+                   $.ajax({
+                      url: "{{ route('solicitarAgendamento') }}",
+                      method: 'POST',
+                      dataType: "json",
+                      data: { 
+                        cliente_cpf: $("#cliente_cpf").val(),
+                        servico: servico,
+                        funcionario: funcionario,
+                        data_hora: $("#dia_escolhido").val(),
+                        horario_momento: horario_momento ,
+
+                       } ,                  
+                      statusCode:{
+              422: function(data){
+                  console.log(data);                                             
+                },
+
+                200: function(data){                            
+                    console.log('data');                  
+                }         
+              },                                          
+                      
+         })
+
+  })
+
+
+  $("#dia_escolhido").change(function(){
+
+
+            if(!$("#div-data").is(":visible"))
               $("#div-data").show();
+
+            var id = $("#div-agendamento-dia").data('funcionario');
+            
+
+            var hora_inicio = $("#dia_escolhido").val();
+
+
 
 
                $.ajaxSetup({
@@ -86,39 +193,36 @@ function selectFuncionario(id){
                       url: "{{ route('getHorario') }}",
                       method: 'GET',
                       dataType: "json",
-                      data: { funcionario: id } ,                  
+                      data: { 
+                        funcionario: id,
+                        dia_escolhido: hora_inicio
+                       } ,                  
                       statusCode:{
               422: function(data){
-                  console.log(data);
-                                             
+                  console.log(data);                                             
                 },
+
                 200: function(data){                            
                       console.log(data)
                         $("#div-data").children().remove();
                         titulo = '<p class="lead"> Selecione o horário: </p>';
                         $("#div-data").append(titulo)
+
+                        console.log(data);
                       $.each( data.horarios, function( key, val ) {        
                         
-                         msg = '<div onclick="selectHorario('+val+')" data-funcionario="'+val+'" class="funcionario-select card border-dark mt-3 mb-3 mr-3" style="max-width: 5rem; min-width: 09rem; float: left;"> <div class="card-header"><img style="width: 100%;" src="https://cdn-images-1.medium.com/max/1200/1*SL4sWHdjGR3vo0x5ta3xfw.jpeg"> </div> <div class="card-body text-dark"><h5 class="card-title">'+val+'</h5> </div></div>'   
+                         msg = '<div onclick="selectHorario('+key+')" data-horario="'+val+'" data-id-hora="'+key+'" class="horario-select card border-dark mt-3 mb-3 mr-3" style="max-width: 5rem; min-width: 09rem; float: left;"> <div class="card-header"></div> <div class="card-body text-dark"><h5 class="card-title">'+val+'</h5> </div></div>'   
 
                         $("#div-data").append(msg)
 
-                    });
+                        });
 
                   
                 }         
               },                                          
                       
          })
-
-
-}
-      
-
-$(document).ready(function($){
-
-
-  /* FUNCTIONS */
+})
 
 
   $(".servicos-select").click(function(){
