@@ -22,7 +22,7 @@ class TableAgendamento extends Migration
             $table->dateTime('hora_final');
             $table->integer('servico');           
             $table->integer('solicitacao_agendamento');
-          
+            $table->timestamps();
         });
     }
 
