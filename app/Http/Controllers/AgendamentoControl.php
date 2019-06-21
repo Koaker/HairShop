@@ -19,8 +19,15 @@ class AgendamentoControl extends Controller
     }
 
        public function indexWeb(){
-        $agendamentos = new agendamentos();
-        $agendamentos = agendamentos::all();
+        //$agendamentos = new agendamentos();
+        
+         $agendamentos = DB::table('agendamentos')
+          ->selectRaw(" agendamentos.*, users.nome as user_name, servicos.nome as service_name")
+          ->join('users', 'users.id', '=', 'agendamento.cliente')
+          ->join('servicos', 'servicos.id', '=', 'agendamento.servico')->get();  
+           
+        //$agendamentos = agendamentos::all();
+           
         return view('agendamento/listar-agendamento', compact('agendamentos'));
     }
 
