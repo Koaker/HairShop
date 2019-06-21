@@ -63,9 +63,6 @@
                                     <th> Cliente    </th>
                                     <th> Funcionário Resp.    </th>      
                                     <th> Data Agendamento   </th>
-                                    <th> Confirmado   </th>
-                                    <th> Situação   </th>
-                                    <th> Valor total   </th>
                                     <th> Serviços   </th>                                 
                                     <th> Editar </th>                                   
                                     <th> Cancelar </th>                                  
@@ -81,29 +78,7 @@
 
                                         <?php $data_agendamento = date("d/m/Y", strtotime($a->hora_inicio)); ?>
                                         <td>{{$data_agendamento}}</td> 
-                                        <?php 
-                                        if($a->confirmado)
-                                          $confirmacao = 'Confirmado';
-                                        else
-                                          $confirmacao = 'Não confirmado';
-                                        ?>
-
-                                        <td>{{$confirmacao}}</td> 
-
-                                        <?php
-                                          switch ((int)$a->situacao) {
-                                            case 1:
-                                              $status = 'Pendente';
-                                              break;
-                                            
-                                            default:
-                                              $status = 'Pendente';
-                                              break;
-                                          }
-
-                                          ?>
-                                        <td>{{$status}}</td> 
-                                        <td>{{$a->valor_total}}</td> 
+                                        
                                         <td>{{$a->service_name}}</td>                                 
                                         <td><a > <button class="btn btn-primary" value='{{$a->id}}'> Editar </button> </a></td>
                                         <td><a > <button class="btn btn-danger" value='{{$a->id}}'> Deletar </button> </a></td>
