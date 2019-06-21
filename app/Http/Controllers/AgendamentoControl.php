@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Agendamentos;
+use App\agendamentos;
 use Illuminate\Http\Request;
 use DB;
 use App\User;
