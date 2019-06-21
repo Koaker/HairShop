@@ -19,7 +19,7 @@ class AgendamentoControl extends Controller
     }
 
        public function indexWeb(){
-
+        $agendamentos = new agendamentos();
         $agendamentos = agendamentos::all();
         return view('agendamento/listar-agendamento', compact('agendamentos'));
     }
