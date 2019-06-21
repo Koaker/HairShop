@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 /* USER */ 
 
-Route::post('solicitarAgendamento', 'AgendamentoControl@store')->name('solicitaAgendamento');
+Route::post('/solicitarAgendamento', 'AgendamentoControl@store')->name('solicitaAgendamento');
 
 Route::get('/getFuncionario', 'UserControl@retornaFuncionarioServico')->name('getFuncionario');
 Route::get('/getHorario', 'UserControl@retornaHorario')->name('getHorario');
