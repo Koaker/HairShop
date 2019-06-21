@@ -89,7 +89,7 @@ class AgendamentoControl extends Controller
             $datahora_inicio = date('Y-m-d H:i:s', strtotime($datahora_inicio));
 
 
-            $agenda->cliente = $cliente;//$request->input('cliente');
+            $agenda->cliente = $usuario;//$request->input('cliente');
             $agenda->funcionario = $request->input('funcionario');
             $agenda->hora_inicio = $datahora_inicio;  
 
