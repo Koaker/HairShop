@@ -23,8 +23,8 @@ class AgendamentoControl extends Controller
         
          $agendamentos = DB::table('agendamentos')
           ->selectRaw(" agendamentos.*, users.name as user_name, servicos.nome as service_name")
-          ->join('users', 'users.id', '=', 'agendamento.cliente')
-          ->join('servicos', 'servicos.id', '=', 'agendamento.servico')->get();  
+          ->join('users', 'users.id', '=', 'agendamentos.cliente')
+          ->join('servicos', 'servicos.id', '=', 'agendamentos.servico')->get();  
            
         //$agendamentos = agendamentos::all();
            
