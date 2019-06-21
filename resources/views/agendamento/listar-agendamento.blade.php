@@ -76,10 +76,10 @@
                                     @foreach($agendamentos as $a)
                                     <tr>
                                         <td>{{$a->id}}</td>
-                                        <td class="td_nome_agendamento">{{$a->cliente}}</td>
+                                        <td class="td_nome_agendamento">{{$a->user_name}}</td>
                                         <td>{{$a->funcionario}}</td>  
 
-                                        <?php $data_agendamento = date("d/m/Y", strtotime($a->datahora_agendamento)); ?>
+                                        <?php $data_agendamento = date("d/m/Y", strtotime($a->hora_inicio)); ?>
                                         <td>{{$data_agendamento}}</td> 
                                         <?php 
                                         if($a->confirmado)
@@ -104,7 +104,7 @@
                                           ?>
                                         <td>{{$status}}</td> 
                                         <td>{{$a->valor_total}}</td> 
-                                        <td>em manutenção</td>                                 
+                                        <td>{{$a->service_name}}</td>                                 
                                         <td><a > <button class="btn btn-primary" value='{{$a->id}}'> Editar </button> </a></td>
                                         <td><a > <button class="btn btn-danger" value='{{$a->id}}'> Deletar </button> </a></td>
                                     </tr>
