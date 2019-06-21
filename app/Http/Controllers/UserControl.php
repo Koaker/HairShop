@@ -6,6 +6,7 @@ use App\User;
 use App\funcionarioCargo;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+
 use DB;
 
 class UserControl extends Controller
@@ -21,35 +22,104 @@ class UserControl extends Controller
 
         $funcionario = $request->input('funcionario');
         $horario_dia = $request->input('dia_escolhido');
+        $servico     = $request->input('servico');
+        $cliente     = $request->input('cliente');
+
+        if($request->input('web')){
+
+            $usuario_consulta = DB::table('users')
+            ->selectRaw("id")
+            ->whereRaw( "cpf = '$cliente' ")->first();   
+            
+            if($usuario_consulta)
+                $usuario = $usuario_consulta->id;
+            else
+                return json_encode("Usuário não encontrado");
+        }
+
+        else{
+            $usuario = $request->input('cliente');
+        }
+
+        if(!$usuario)
+            return json_encode("Sua sessão expirou");
+
 
         $horario_disponivel = DB::table('agendamentos')
         ->selectRaw("hora_inicio, hora_final")
-        ->whereRaw( "funcionario = $funcionario and hora_inicio = '$horario_dia'")->get();   
-        
-        $horario_disponivel = (array)$horario_disponivel;
+        ->whereRaw( "funcionario = $funcionario and hora_inicio like '%$horario_dia%'")->get();  
 
+        $horario_cliente= DB::table('agendamentos')
+        ->selectRaw("hora_inicio, hora_final")
+        ->whereRaw( "cliente = $usuario and hora_inicio like '%$horario_dia%'")->get();   
         
+        $horario_servico = DB::table('servicos')
+        ->selectRaw("duracao")
+        ->whereRaw( "id = $servico")->first();
+
+        $soma= '+'.$horario_servico->duracao.' minute';                 
+       
+
+        $horario_disponivel = (array)$horario_disponivel;        
+        $contador = 0;
         foreach ($horario_disponivel as $key) {
 
             foreach ($key as $row) {
-                
-                $horario_banco[] = date("H:i", strtotime($row->hora_final));
-                $horario_banco[] = date("H:i", strtotime($row->hora_inicio));
-
+            
+               
+                $horario_banco[$contador]['hora_inicio'] = date("H:i", strtotime($row->hora_inicio));                
+                $horario_banco[$contador]['hora_final'] = date("H:i", strtotime($row->hora_final));
+                $contador++;
             }
+            
         }
+
+        $horario_cliente = (array)$horario_cliente;  
+           foreach ($horario_cliente as $key) {
+
+            foreach ($key as $row) {
+            
+               
+                $horario_banco[$contador]['hora_inicio'] = date("H:i", strtotime($row->hora_inicio));                
+                $horario_banco[$contador]['hora_final'] = date("H:i", strtotime($row->hora_final));
+                $contador++;
+            }
+            
+        }
+
 
 
         if($horario_banco){
-            $resultado = array_diff($horario, $horario_banco);
-        } else{
-            $resultado = $horario;
-        }
-        
-      
+            /* VERIFICA VALORES AGENDADOS PARA ELIMINAR O TEMPO DURANTE UM SERVIÇO*/
+            foreach ($horario_banco as $chave) { 
+
+                foreach ($horario as $key => $value) {
+                    if($value == $chave['hora_inicio']){
+                        unset($horario[$key]);
+                        //echo "<br>Removi Hora Inicio=>".$value;                      
+                       
+                    } else if( $value <= $chave['hora_final'] && $value >= $chave['hora_inicio']  ){
+                         unset($horario[$key]);                        
+                         //echo "<br>removi maior igual=>".$value;
+                        }
+                }   
+                /* VERIFICA SE O HORÁRIO É COMPATIVEL COM O SERVIÇO */
+
+                foreach ($horario as $key_1 => $value_1) {
+                     $hora_servico = date('H:i', strtotime($soma,strtotime($value_1)))  ;   
+                     if( $hora_servico < $chave['hora_final'] && $hora_servico > $chave['hora_inicio']  ){                        
+                        //echo "<br>Removi Por serviço=>".$hora_servico;
+                        unset($horario[$key_1]);                           
+                     }
+                }
+            }                            
+            
+        }     // Final do IF         
+       
+
          $r = new \stdClass();
-         $r->horarios = $resultado;
-        
+         $r->horarios = $horario;
+       
         return json_encode($r);
     }
 

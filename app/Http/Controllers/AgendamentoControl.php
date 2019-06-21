@@ -50,7 +50,7 @@ class AgendamentoControl extends Controller
         //
             $agenda = new agendamentos();
             $servico = servicos::find($request->input('servico'));
-
+            $cliente     = $request->input('cliente');
         // $mensagens = [            
         //     'nome.required' => 'O nome é obrigatório',
         //     'nome.string' => 'Você deve digitar um texto', 
@@ -87,21 +87,41 @@ class AgendamentoControl extends Controller
                 // funcionario
                 // data_hora
 
+
+        if($request->input('web')){
+
+            $usuario_consulta = DB::table('users')
+            ->selectRaw("id")
+            ->whereRaw( "cpf = '$cliente'")->first();   
+         
+            if($usuario_consulta)
+                $usuario = $usuario_consulta->id;
+            else
+                return json_encode("Usuário não encontrado");
+        }
+
+        else{
+            $usuario = $request->input('cliente');
+        }
+
+        if(!$usuario)
+            return json_encode("Sua sessão expirou");
+
             $dia = $request->input('data_hora');
             $hora = $request->input('horario_momento');
 
             $soma= '+'.$servico->duracao.' minute';
-        
-            $datahora_inicio = $dia . " ". $hora;
 
+            $datahora_inicio = $dia . " ". $hora;
             $datahora_inicio = date('Y-m-d H:i:s', strtotime($datahora_inicio));
 
-            //echo $datahora_inicio;
 
             $agenda->cliente = 10;//$request->input('cliente');
             $agenda->funcionario = $request->input('funcionario');
             $agenda->hora_inicio = $datahora_inicio;  
-            //$agenda->hora_final =  date('Y-m-d H:i:s', strtotime($soma,$datahora_inicio));
+
+
+            $agenda->hora_final =  date('Y-m-d H:i:s', strtotime($soma,strtotime($datahora_inicio)));
             $agenda->solicitacao_agendamento = 1;
             $agenda->servico = $request->input('servico');
             

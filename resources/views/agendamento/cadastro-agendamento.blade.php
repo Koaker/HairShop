@@ -147,11 +147,12 @@ $(document).ready(function($){
                       method: 'POST',
                       dataType: "json",
                       data: { 
-                        cliente_cpf: $("#cliente_cpf").val(),
+                        cliente: $("#cliente_cpf").val(),
                         servico: servico,
                         funcionario: funcionario,
                         data_hora: $("#dia_escolhido").val(),
                         horario_momento: horario_momento ,
+                        web: 1
 
                        } ,                  
                       statusCode:{
@@ -160,7 +161,7 @@ $(document).ready(function($){
                 },
 
                 200: function(data){                            
-                    console.log('data');                  
+                    console.log(data);                  
                 }         
               },                                          
                       
@@ -175,13 +176,16 @@ $(document).ready(function($){
             if(!$("#div-data").is(":visible"))
               $("#div-data").show();
 
-            var id = $("#div-agendamento-dia").data('funcionario');
-            
-
+            var id = $("#div-agendamento-dia").attr('data-funcionario');            
             var hora_inicio = $("#dia_escolhido").val();
+            var servico = "";
 
+            $('.servicos-select').each(function(){
 
-
+                  if ( $(this).hasClass( "border-danger" ) ) {
+                    servico = $(this).data('servico');
+                  }
+            })
 
                $.ajaxSetup({
                        headers: {
@@ -195,7 +199,10 @@ $(document).ready(function($){
                       dataType: "json",
                       data: { 
                         funcionario: id,
-                        dia_escolhido: hora_inicio
+                        dia_escolhido: hora_inicio,
+                        servico: servico,
+                        cliente: $("#cliente_cpf").val(),
+                        web: 1
                        } ,                  
                       statusCode:{
               422: function(data){
@@ -203,12 +210,12 @@ $(document).ready(function($){
                 },
 
                 200: function(data){                            
-                      console.log(data)
+                    
                         $("#div-data").children().remove();
                         titulo = '<p class="lead"> Selecione o horário: </p>';
                         $("#div-data").append(titulo)
 
-                        console.log(data);
+                      
                       $.each( data.horarios, function( key, val ) {        
                         
                          msg = '<div onclick="selectHorario('+key+')" data-horario="'+val+'" data-id-hora="'+key+'" class="horario-select card border-dark mt-3 mb-3 mr-3" style="max-width: 5rem; min-width: 09rem; float: left;"> <div class="card-header"></div> <div class="card-body text-dark"><h5 class="card-title">'+val+'</h5> </div></div>'   
