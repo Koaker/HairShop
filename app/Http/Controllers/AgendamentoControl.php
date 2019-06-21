@@ -58,41 +58,25 @@ class AgendamentoControl extends Controller
             $agenda = new agendamentos();
             $servico = servicos::find((int)$request->input('servico'));
             $cliente     = $request->input('cliente');
-        // $mensagens = [            
-        //     'nome.required' => 'O nome é obrigatório',
-        //     'nome.string' => 'Você deve digitar um texto', 
-        //     'cpf.unique' => 'O CPF já está cadastrado para outro usuário',
-        //     'cpf.min' => 'CPF inválido',
-        //     'cpf.required' => 'O CPF é obrigatório',
-        //     'email.required' => 'O e-mail é obrigatório',
-        //     'email.email' => 'O e-mail informado é inválido',
-        //     'email.unique' => 'O e-mail já está cadastrado para outro usuário',
-        //     'senha.required' => 'A senha é obrigatória',
-        //     'senha.confirmed' => 'A senha não é igual a confirmação de senha',
-        //     'senha_confirmation.required' => 'A confirmação de senha é obrigatória',
-        //     'senha_confirmation.same' => 'A confirmação da senha não é igual a senha',
-        //     'telefone.required' => 'O telefone é obrigatório',
-        //     'telefone.max' => 'Telefone inválido! O telefone deve ser informado junto com o DDD',
-        //     'telefone.min' => 'Telefone inválido! O telefone deve ser informado junto com o DDD',
-        //     'tipo.required' => "Você deve selecionar um tipo",
+     
+            if($request->input('web')){
 
-        // ];
+            $usuario_consulta = DB::table('users')
+            ->selectRaw("id")
+            ->whereRaw( "cpf = '$cliente'")->first();   
+         
+            if($usuario_consulta)
+                $usuario = $usuario_consulta->id;
+            else
+                return json_encode("Usuário não encontrado");
+        }
 
-        // $campos = [
+        else{
+            $usuario = $request->input('cliente');
+        }
 
-        //     'nome' => 'bail|required|string',
-        //     'cpf' => 'bail|required|unique:users,cpf|min:14|max:14',
-        //     'email' => 'bail|required||email|unique:users,email',
-        //     'senha' => 'bail|required|confirmed',
-        //     'senha_confirmation' => 'bail|required|same:senha',
-        //     'telefone' => 'bail|required|max:15|min:15',
-        //     'tipo' => 'bail|required'
-        // ];
-            
-                // cliente_cpf
-                // serviço
-                // funcionario
-                // data_hora
+        if(!$usuario)
+            return json_encode("Sua sessão expirou");
 
 
 
