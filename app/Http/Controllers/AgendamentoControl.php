@@ -99,7 +99,7 @@ class AgendamentoControl extends Controller
             $dia = $request->input('data_hora');
             $hora = $request->input('horario_momento');
 
-            $soma= '+'.$servico->duracao.' minute';
+            $soma= '+60 minute';
 
             $datahora_inicio = $dia . " ". $hora;
             $datahora_inicio = date('Y-m-d H:i:s', strtotime($datahora_inicio));
