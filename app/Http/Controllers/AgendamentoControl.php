@@ -95,7 +95,7 @@ class AgendamentoControl extends Controller
                 // data_hora
 
 
-        if($request->input('web')){
+       
 
             $usuario_consulta = DB::table('users')
             ->selectRaw("id")
@@ -105,14 +105,6 @@ class AgendamentoControl extends Controller
                 $usuario = $usuario_consulta->id;
             else
                 return json_encode("Usuário não encontrado");
-        }
-
-        else{
-            $usuario = $request->input('cliente');
-        }
-
-        if(!$usuario)
-            return json_encode("Sua sessão expirou");
 
             $dia = $request->input('data_hora');
             $hora = $request->input('horario_momento');
