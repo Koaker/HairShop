@@ -56,7 +56,7 @@ class AgendamentoControl extends Controller
     {
         //
             $agenda = new agendamentos();
-            $servico = servicos::find($request->input('servico'));
+            $servico = servicos::find((int)$request->input('servico'));
             $cliente     = $request->input('cliente');
         // $mensagens = [            
         //     'nome.required' => 'O nome é obrigatório',
