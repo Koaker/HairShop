@@ -76,7 +76,7 @@
                                         <td class="td_nome_agendamento">{{$a->user_name}}</td>
                                         <td>{{$a->funcionario}}</td>  
 
-                                        <?php $data_agendamento = date("d/m/Y", strtotime($a->hora_inicio)); ?>
+                                        <?php $data_agendamento = date("d/m/Y H:i:s", strtotime($a->hora_inicio)); ?>
                                         <td>{{$data_agendamento}}</td> 
                                         
                                         <td>{{$a->service_name}}</td>                                 
